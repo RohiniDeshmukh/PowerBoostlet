@@ -95,9 +95,7 @@ backArrowDataViz.addEventListener("click", () => {
 // Function to close all open spans
 function closeAllSpans() {
   document
-    .querySelectorAll(
-      ".nav-content .search-box, .nav-content .edit-box, .nav-content .rect-box"
-    )
+    .querySelectorAll(".nav-content .edit-box, .nav-content .rect-box")
     .forEach(function (box) {
       box.style.display = "none";
     });
@@ -117,11 +115,11 @@ function toggleSpan(span) {
 }
 
 // Add event listeners to each icon to toggle the corresponding span
-document
-  .querySelector(".fa-solid.fa-magnifying-glass")
-  .parentNode.addEventListener("click", function () {
-    toggleSpan(document.querySelector(".search-box"));
-  });
+// document
+//   .querySelector(".fa-solid.fa-magnifying-glass")
+//   .parentNode.addEventListener("click", function () {
+//     toggleSpan(document.querySelector(".search-box"));
+//   });
 
 document
   .querySelector(".fa-regular.fa-pen-to-square")
