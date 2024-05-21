@@ -10,7 +10,8 @@ function appendTagsToHead() {
   // Create and append the second link tag
   var link2 = document.createElement("link");
   link2.rel = "stylesheet";
-  link2.href = "http://localhost:8000/style.css";
+//   link2.href = "http://localhost:8000/style.css";
+  link2.href = "https://rohinideshmukh.github.io/PowerBoostlet/style.css";
   document.head.appendChild(link2);
 
   // Create and append the first script tag
@@ -32,7 +33,8 @@ function appendTagsToHead() {
 
   // Create and append the third script tag
   var script3 = document.createElement("script");
-  script3.src = "http://localhost:8000/script.js";
+//   script3.src = "http://localhost:8000/script.js";
+  script3.src = "https://rohinideshmukh.github.io/PowerBoostlet/script.js";
   document.head.appendChild(script3);
 }
 // Call the function to append tags
