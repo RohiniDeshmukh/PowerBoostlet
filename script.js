@@ -150,10 +150,10 @@ function appendScriptToBody() {
         
         function showSuggestions(inputValue) {
           const suggestions = {
-            s: [{name: "Sam", script: "https://shrutivarade.github.io/boostlet/examples/segmentanything.js"}, {name: "Sobel", script: "https://shrutivarade.github.io/boostlet/examples/sobel.js"}],
-            i: [{name: "Image Captioning", script: "https://shrutivarade.github.io/boostlet/examples/imageCaptioning.js"}],
-            t: [{name: "Tracko", script: "https://shrutivarade.github.io/boostlet/examples/trako.js"}],
-            p: [{name: "Plotly", script: "https://shrutivarade.github.io/boostlet/examples/plotly.js"}]
+            s: [{name: "Sam", script: "https://boostlet.org/examples/segmentanything.js"}, {name: "Sobel", script: "https://boostlet.org/examples/sobel.js"}],
+            i: [{name: "Image Captioning", script: "https://boostlet.org/examples/imageCaptioning.js"}],
+            t: [{name: "Tracko", script: "https://boostlet.org/examples/trako.js"}],
+            p: [{name: "Plotly", script: "https://boostlet.org/examples/plotly.js"}]
           };
         
           const suggestionsContainer = document.getElementById("suggestionsContainer");
@@ -198,23 +198,23 @@ appendScriptToBody();
 var scriptsToLoad = [
   {
     id: "Sobel",
-    src: "https://shrutivarade.github.io/boostlet/examples/sobel.js",
+    src: "https://boostlet.org/examples/sobel.js",
   },
   {
     id: "SAM",
-    src: "https://shrutivarade.github.io/boostlet/examples/segmentanything.js",
+    src: "https://boostlet.org/examples/segmentanything.js",
   },
   {
     id: "Plotly",
-    src: "https://shrutivarade.github.io/boostlet/examples/plotly.js",
+    src: "https://boostlet.org/examples/plotly.js",
   },
   {
     id: "ImageCaptioning",
-    src: "https://shrutivarade.github.io/boostlet/examples/imageCaptioning.js",
+    src: "https://boostlet.org/examples/imageCaptioning.js",
   },
   {
     id: "Trako",
-    src: "https://shrutivarade.github.io/boostlet/examples/trako.js",
+    src: "https://boostlet.org/examples/trako.js",
   },
 ];
 
@@ -238,10 +238,10 @@ function loadScript(scriptSrc) {
 // for search suggestions
 
 // const features = {
-//   "Sobel": "https://shrutivarade.github.io/boostlet/examples/sobel.js",
-//   "Sam": "https://shrutivarade.github.io/boostlet/examples/segmentanything.js",
-//   "Plotly": "https://shrutivarade.github.io/boostlet/examples/plotly.js",
-//   "Image Captioning": "https://shrutivarade.github.io/boostlet/examples/imageCaptioning.js"
+//   "Sobel": "https://boostlet.org/examples/sobel.js",
+//   "Sam": "https://boostlet.org/examples/segmentanything.js",
+//   "Plotly": "https://boostlet.org/examples/plotly.js",
+//   "Image Captioning": "https://boostlet.org/examples/imageCaptioning.js"
 // };
 
 // function loadExternalScript(scriptSrc, callback) {
@@ -263,10 +263,10 @@ function loadScript(scriptSrc) {
 
 // Map functionality names to their respective script URLs
 // const functionalityScripts = {
-//   sobel: "https://shrutivarade.github.io/boostlet/examples/sobel.js",
-//   sam: "https://shrutivarade.github.io/boostlet/examples/segmentanything.js",
-//   imageCaptioning: "https://shrutivarade.github.io/boostlet/examples/imageCaptioning.js",
-//   plotly: "https://shrutivarade.github.io/boostlet/examples/plotly.js",
+//   sobel: "https://boostlet.org/examples/sobel.js",
+//   sam: "https://boostlet.org/examples/segmentanything.js",
+//   imageCaptioning: "https://boostlet.org/examples/imageCaptioning.js",
+//   plotly: "https://boostlet.org/examples/plotly.js",
 // };
 
 function loadExternalScript(scriptSrc, callback) {
@@ -287,11 +287,11 @@ function loadExternalScript(scriptSrc, callback) {
 }
 
 const functionalityScripts = {
-  Sobel: "https://shrutivarade.github.io/boostlet/examples/sobel.js",
-  Sam: "https://shrutivarade.github.io/boostlet/examples/segmentanything.js",
+  Sobel: "https://boostlet.org/examples/sobel.js",
+  Sam: "https://boostlet.org/examples/segmentanything.js",
   "Image Captioning":
-    "https://shrutivarade.github.io/boostlet/examples/imageCaptioning.js",
-  Plotly: "https://shrutivarade.github.io/boostlet/examples/plotly.js",
+    "https://boostlet.org/examples/imageCaptioning.js",
+  Plotly: "https://boostlet.org/examples/plotly.js",
 };
 
 // search suggestion working

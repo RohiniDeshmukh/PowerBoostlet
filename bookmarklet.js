@@ -15,7 +15,7 @@ function appendTagsToHead() {
 
   // Create and append the first script tag
   var script1 = document.createElement("script");
-  script1.src = "https://shrutivarade.github.io/boostlet/dist/boostlet.min.js";
+  script1.src = "https://boostlet.org/dist/boostlet.min.js";
   document.head.appendChild(script1);
 
   // Create and append the second script tag
