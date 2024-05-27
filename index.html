@@ -5,137 +5,84 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PowerBoostlet</title>
+    <style>
+      a {
+        color: #007ec6;
+      }
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-    />
+      .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        text-align: center;
+      }
 
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://boostlet.org/dist/boostlet.min.js"></script>
+      .button {
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: bolder;
+      }
+
+      .button:hover {
+        background-color: black;
+        color: white;
+      }
+    </style>
   </head>
 
   <body>
-    <nav>
-      <div class="nav-content">
-        <div class="toggle-btn">
-          <i class="fas fa-plus"></i>
-        </div>
+    <div>
+      <a href="" id="bookmarklet.js"
+        ><button class="button">PowerBoost😎</button></a
+      >
+    </div>
+    <script>
+      function load_boostlet(url, callback) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            // request done
+            callback(xhr.response);
 
-        <span class="myspan" style="--i: 2">
-          <!-- <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a> -->
-          <div class="search-box">
-            <input
-              type="text"
-              placeholder="Search..."
-              id="searchInput"
-              list="suggestions"
-            />
-            <datalist id="suggestions">
-              <option value="Sobel"></option>
-              <option value="Sam"></option>
-              <option value="Image Captioning"></option>
-              <option value="Plotly"></option>
-              <option value="Tracko"></option>
-              <option value="Cactus"></option>
-            </datalist>
-          </div>
-        </span>
+            return;
+          }
+        };
 
-        <!-- <div class="search-box">
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Search..."
-            oninput="showSuggestions(this.value)"
-            autocomplete="off"
-          />
-          <div id="suggestionsContainer" class="suggestions"></div>
-        </div> -->
+        xhr.send(null);
+      }
 
-        <!-- ***************** -->
+      // FROM https://caiorss.github.io/bookmarklet-maker/
+      function compile_boostlet(code) {
+        var output =
+          "javascript:" +
+          encodeURIComponent("(function(){" + code.trim() + "})();");
 
-        <span class="myspan" style="--i: 3">
-          <a href="#"><i class="fa-regular fa-pen-to-square"></i></a>
-          <div class="edit-box">
-            <div id="editor">console.log(Boostlet.init());</div>
-            <!-- <div id="editor">console.log(Boostlet.getImage());</div> -->
-            <button onclick="runCode()">Run Code</button>
-            <div id="output"></div>
-          </div>
-        </span>
+        return output;
+      }
 
-        <span class="myspan" style="--i: 4">
-          <a href="#"><i class="fa-sharp fa-solid fa-b"></i></a>
+      function setup_boostlet_button(id, url) {
+        var link = document.getElementById(id);
 
-          <div class="rect-box">
-            <div class="button-row">
-              <button class="rect-btn ML">Machine Learning</button>
-              <button class="rect-btn LLM">LLM Models</button>
-            </div>
-            <div class="button-row">
-              <button class="rect-btn Filters">Filters</button>
-              <button class="rect-btn DataViz">Data visualisation</button>
-            </div>
-          </div>
+        load_boostlet(url, function (code) {
+          output = compile_boostlet(code);
+          link.href = output;
+        });
+      }
 
-          <div class="rect-box ML">
-            <div class="button-row">
-              <button class="rect-btn">SAM</button>
-              <button class="rect-btn">Melanoma</button>
-            </div>
-            <div class="button-row">
-              <div class="back-arrow ML">
-                <i class="fa-solid fa-arrow-left"></i>
-              </div>
-            </div>
-          </div>
+      window.onload = function () {
+        // var baseurl = 'http://localhost:8000/';
+        var baseurl =
+          "https://raw.githubusercontent.com/RohiniDeshmukh/PowerBoostlet/development/";
 
-          <div class="rect-box LLM">
-            <div class="button-row">
-              <button class="rect-btn">Image Captioning</button>
-            </div>
-            <div class="button-row">
-              <div class="back-arrow LLM">
-                <i class="fa-solid fa-arrow-left"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="rect-box Filters">
-            <div class="button-row">
-              <button class="rect-btn">Sobel</button>
-              <button class="rect-btn">Trako</button>
-            </div>
-            <div class="button-row">
-              <div class="back-arrow Filters">
-                <i class="fa-solid fa-arrow-left"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="rect-box DataViz">
-            <div class="button-row">
-              <button class="rect-btn">Plotly</button>
-            </div>
-            <div class="button-row">
-              <div class="back-arrow DataViz">
-                <i class="fa-solid fa-arrow-left"></i>
-              </div>
-            </div>
-          </div>
-        </span>
-      </div>
-    </nav>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.33.0/ace.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.33.0/src-min-noconflict/theme-chrome.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/ace-builds@1.33.0/css/ace.min.css"
-    />
-
-    <script src="app.js"></script>
+        var button = "bookmarklet.js";
+        setup_boostlet_button(button, baseurl + button);
+      };
+    </script>
   </body>
 </html>
