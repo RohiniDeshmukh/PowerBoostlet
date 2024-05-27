@@ -3,13 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   min-height: 100vh;
   background-color: #1111;
   overflow: hidden;
 }
-
 nav {
   position: fixed;
   top: 20px;
@@ -20,15 +18,13 @@ nav {
   align-items: center;
   justify-content: center;
   cursor: grab;
-  left: 0;
+  left: 150px;
 }
-
 nav .nav-content {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .nav-content .toggle-btn,
 .nav-content span a {
   height: 60px;
@@ -40,7 +36,6 @@ nav .nav-content {
   border-radius: 50%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
-
 .nav-content .toggle-btn {
   font-size: 35px;
   color: #0e2431;
@@ -48,54 +43,42 @@ nav .nav-content {
   cursor: pointer;
   transition: all 0.6s ease;
 }
-
 .nav-content .myspan {
   position: absolute;
   transition: all 0.6s ease;
   opacity: 0;
-  top: 60px;
-  right: 150px;
 }
-
 nav.open .nav-content span {
   opacity: 1;
   transform: translateX(calc(var(--i) * 80px));
 }
-
 .nav-content span a {
   text-decoration: none;
 }
-
 .nav-content span a i {
   font-size: 24px;
   color: #0e2431;
   opacity: 0.8;
   transition: 0.2s;
 }
-
 .nav-content span a:hover i {
   opacity: 1;
 }
-
-/* 1 */
 .search-box {
   position: absolute;
-  top: -110px;
-  left: 20px;
+  top: 130%;
   width: 200px;
   height: 60px;
   background-color: white;
   border-radius: 10px;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 .search-box.show {
   display: flex;
 }
-
 input[type="text"] {
   width: 80%;
   padding: 10px;
@@ -103,8 +86,6 @@ input[type="text"] {
   border: 2px solid #ccc;
   border-radius: 5px;
 }
-
-/* 2 */
 .rect-box {
   position: absolute;
   top: 130%;
@@ -118,11 +99,9 @@ input[type="text"] {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   flex-direction: column;
 }
-
 .rect-box.show {
   display: flex;
 }
-
 .rect-box .rect-btn {
   padding: 8px 16px;
   margin: 4px;
@@ -135,45 +114,25 @@ input[type="text"] {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
 .rect-box .rect-btn:hover {
   background-color: #1a4567;
 }
-
 .button-row {
   display: flex;
   width: 100%;
   justify-content: center;
 }
-
-.rect-box.ML {
-  display: none;
-}
-
-.rect-box.LLM {
-  display: none;
-}
-
-.rect-box.LLM.show {
-  display: flex;
-}
-
-.rect-box.Filters {
-  display: none;
-}
-
-.rect-box.Filters.show {
-  display: flex;
-}
-
+.rect-box.ML,
+.rect-box.LLM,
+.rect-box.Filters,
 .rect-box.DataViz {
   display: none;
 }
-
+.rect-box.LLM.show,
+.rect-box.Filters.show,
 .rect-box.DataViz.show {
   display: flex;
 }
-
 .back-arrow {
   display: flex;
   justify-content: center;
@@ -181,8 +140,9 @@ input[type="text"] {
   cursor: pointer;
   font-size: 24px;
   margin-top: 5px;
+  visibility: visibile;
+  color: #333;
 }
-
 .edit-box {
   position: absolute;
   top: 130%;
@@ -197,7 +157,6 @@ input[type="text"] {
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 #editor {
   position: relative;
   height: 100%;
@@ -205,15 +164,14 @@ input[type="text"] {
   border: 1px solid lightgray;
   margin: auto;
 }
-
 #output {
   width: 100%;
   height: 100%;
   border: 1px solid #ccc;
   padding: 5px;
   overflow: auto;
+  color: #333;
 }
-
 #suggestionsContainer {
   background-color: white;
   border: 1px solid #ccc;
@@ -223,13 +181,11 @@ input[type="text"] {
   box-shadow: 0px 4px 5px -2px rgba(0, 0, 0, 0.25);
   z-index: 5;
 }
-
 .suggestion-item {
   padding: 10px;
   border-bottom: 1px solid #eee;
   cursor: pointer;
 }
-
 .suggestion-item:hover {
   background-color: #f0f0f0;
 }
