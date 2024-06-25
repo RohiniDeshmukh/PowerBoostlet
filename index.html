@@ -37,11 +37,13 @@
 
   <body>
     <div>
-      <a href="" id="bookmarklet.js"
+      <a href="" id="floatingUI.js"
         ><button class="button">PowerBoost😎</button></a
       >
     </div>
+
     <script>
+      // create bookmark
       function load_boostlet(url, callback) {
         let xhr = new XMLHttpRequest();
         xhr.open("GET", url);
@@ -76,11 +78,10 @@
       }
 
       window.onload = function () {
-        // var baseurl = 'http://localhost:8000/';
-        var baseurl =
-          "https://raw.githubusercontent.com/RohiniDeshmukh/PowerBoostlet/main/";
+        var baseurl = "http://localhost:8000/examples/floatingUI/";
+        // var baseurl = "https://raw.githubusercontent.com/RohiniDeshmukh/PowerBoostlet/main/";
 
-        var button = "bookmarklet.js";
+        var button = "floatingUI.js";
         setup_boostlet_button(button, baseurl + button);
       };
     </script>
