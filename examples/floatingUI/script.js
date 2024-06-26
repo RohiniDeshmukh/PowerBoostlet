@@ -1,5 +1,4 @@
-var editor;
-
+// Setup Nav Elements
 const nav = document.querySelector("nav");
 const toggleBtn = document.querySelector(".toggle-btn");
 toggleBtn.addEventListener("click", () => {
@@ -19,8 +18,8 @@ function onDrag({ movementX, movementY }) {
   if (newLeft < 0) newLeft = 0;
   else if (newLeft > windowWidth - nav.offsetWidth)
     newLeft = windowWidth - nav.offsetWidth;
-  nav.style.top = newTop;
-  nav.style.left = newLeft;
+  nav.style.top = `${newTop}px`;
+  nav.style.left = `${newLeft}px`;
 }
 nav.addEventListener("mousedown", () => {
   nav.addEventListener("mousemove", onDrag);
@@ -31,6 +30,7 @@ nav.addEventListener("mouseup", () => {
 nav.addEventListener("mouseleave", () => {
   nav.removeEventListener("mousemove", onDrag);
 });
+
 
 // Event listeners for the machine learning, LLM, Filters, and Data Visualization buttons
 const mlBtn = document.querySelector(".rect-btn.ML");
@@ -111,7 +111,7 @@ document
   });
 
 async function runCode() {
-  const userCode = editor.getValue();
+  const userCode = powerboost.editor.getValue();
   const outputDiv = document.getElementById("output");
   outputDiv.innerHTML = "";
 
