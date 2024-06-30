@@ -108,7 +108,7 @@ document
   .querySelector(".fa-sharp.fa-solid.fa-b")
   .parentNode.addEventListener("click", function () {
     toggleSpan(document.querySelector(".rect-box"));
-  });
+  });   
 
 async function runCode() {
   const userCode = powerboost.editor.getValue();
