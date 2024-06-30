@@ -1,0 +1,9 @@
+{
+    "name": "powerboostlet",
+    "version": "0.0.1-alpha",
+    "source": "src/index.js",
+    "main": "dist/powerboostlet.min.js",
+    "devDependencies": {
+      "parcel": "^2.10.3"
+    }
+  }
