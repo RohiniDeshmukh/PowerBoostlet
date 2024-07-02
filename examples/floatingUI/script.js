@@ -4,6 +4,10 @@ const toggleBtn = document.querySelector(".toggle-btn");
 toggleBtn.addEventListener("click", () => {
   nav.classList.toggle("open");
 });
+
+// This code sets up a click event listener on a button (with class toggle-btn).
+// When this button is clicked, it toggles the open class on the <nav> element.
+// This is likely used to show or hide the navigation menu.
 function onDrag({ movementX, movementY }) {
   const navStyle = window.getComputedStyle(nav);
   const navTop = parseInt(navStyle.top);
@@ -31,48 +35,13 @@ nav.addEventListener("mouseleave", () => {
   nav.removeEventListener("mousemove", onDrag);
 });
 
-
+//These lines handle dragging the navigation menu. 
+//When the mouse is pressed down on the navigation (mousedown event), 
+//the onDrag function is attached to the mousemove event, 
+//allowing the user to drag the menu. 
+//When the mouse is released (mouseup) or leaves the navigation area (mouseleave),
+// the onDrag function is removed from the mousemove event to stop dragging.
 // Event listeners for the machine learning, LLM, Filters, and Data Visualization buttons
-const mlBtn = document.querySelector(".rect-btn.ML");
-const mlRectBox = document.querySelector(".rect-box.ML");
-mlBtn.addEventListener("click", () => {
-  mlRectBox.style.display = "flex";
-});
-const backArrowMl = document.querySelector(".back-arrow.ML");
-backArrowMl.addEventListener("click", () => {
-  mlRectBox.style.display = "none";
-});
-
-const llmBtn = document.querySelector(".rect-btn.LLM");
-const llmRectBox = document.querySelector(".rect-box.LLM");
-llmBtn.addEventListener("click", () => {
-  llmRectBox.style.display = "flex";
-});
-const backArrowLLM = document.querySelector(".back-arrow.LLM");
-backArrowLLM.addEventListener("click", () => {
-  llmRectBox.style.display = "none";
-});
-
-const filtersBtn = document.querySelector(".rect-btn.Filters");
-const filtersRectBox = document.querySelector(".rect-box.Filters");
-filtersBtn.addEventListener("click", () => {
-  filtersRectBox.style.display = "flex";
-});
-const backArrowFilters = document.querySelector(".back-arrow.Filters");
-backArrowFilters.addEventListener("click", () => {
-  filtersRectBox.style.display = "none";
-});
-
-const DataVizBtn = document.querySelector(".rect-btn.DataViz");
-const DataVizRectBox = document.querySelector(".rect-box.DataViz");
-DataVizBtn.addEventListener("click", () => {
-  DataVizRectBox.style.display = "flex";
-});
-const backArrowDataViz = document.querySelector(".back-arrow.DataViz");
-backArrowDataViz.addEventListener("click", () => {
-  DataVizRectBox.style.display = "none";
-});
-
 function closeAllSpans() {
   document
     .querySelectorAll(
@@ -108,7 +77,7 @@ document
   .querySelector(".fa-sharp.fa-solid.fa-b")
   .parentNode.addEventListener("click", function () {
     toggleSpan(document.querySelector(".rect-box"));
-  });   
+  });
 
 async function runCode() {
   const userCode = powerboost.editor.getValue();
@@ -126,12 +95,161 @@ async function runCode() {
   }
 }
 
-// Function to load and execute a script
-function loadScript(scriptId) {
-  var script = document.createElement("script");
-  script.src = scriptId;
-  document.head.appendChild(script);
+
+
+
+
+
+// categories = ["Machine Learning", "LLM", "Filters", "Data Visualization", "User Interaction"];
+categories = Boostlet.categories;
+container_categories = document.querySelector(".categories"); // Create a container for all the rows
+
+// Function to create a button
+function createButton(text, className) {
+  button = document.createElement('button');
+  button.className = 'rect-btn ' + className;
+  button.id = text;
+  button.textContent = text;
+  return button;
 }
+
+// Function to create a back arrow
+function createBackArrow(className) {
+  const backArrow = document.createElement('div');
+  backArrow.className = 'back-arrow ' + className;
+  const icon = document.createElement('i');
+  icon.className = 'fa-solid fa-arrow-left';
+  backArrow.appendChild(icon);
+  return backArrow;
+}
+
+// Function to show or hide elements
+function toggleVisibility(element, show) {
+  element.style.display = show ? 'block' : 'none';
+}
+
+
+// Loop through the categories array and create rows and buttons
+for (i = 0; i < categories.length; i += 2) {
+  buttonRow = document.createElement('div');
+  buttonRow.className = 'button-row';
+
+  // Create the first button in the row
+  button1 = createButton(categories[i], categories[i].replace(/\s+/g, ''));
+  buttonRow.appendChild(button1);
+
+  // Check if there is a second button in the row
+  if (i + 1 < categories.length) {
+    button2 = createButton(categories[i + 1], categories[i + 1].replace(/\s+/g, ''));
+    buttonRow.appendChild(button2);
+  }
+
+  // Append the button row to the container
+  container_categories.appendChild(buttonRow);
+}
+
+// this.examples = new Map();
+// this.examples.set("Machine Learning", ["Sam", "Melonoma"]);
+// this.examples.set("LLM", ["Image Captioning"]);
+// this.examples.set("Filters", ["sobel", "trako"]);
+// this.examples.set("Data Visualisation", ["Plotly"]);
+// this.examples.set("user interaction", ["LLM chat"]);
+examples = Boostlet.examples;
+
+// Loop through the categories array and create rows and buttons
+categories.forEach(category => {
+  container_examples = document.createElement('div');
+  container_examples.className = 'rect-box ' + category.replace(/\s+/g, '');
+  container_examples.style.display = 'none';
+
+  // Create buttons for each example in the category
+  exampleButtons = examples.get(category);
+  if (exampleButtons) {
+    for (i = 0; i < exampleButtons.length; i += 2) {
+      exampleRow = document.createElement('div');
+      exampleRow.className = 'button-row';
+
+      exampleButton1 = createButton(exampleButtons[i], '');
+      exampleRow.appendChild(exampleButton1);
+
+      if (i + 1 < exampleButtons.length) {
+        exampleButton2 = createButton(exampleButtons[i + 1], '');
+        exampleRow.appendChild(exampleButton2);
+      }
+
+      container_examples.appendChild(exampleRow);
+    }
+  }
+
+  // Create back arrow row
+  backArrowRow = document.createElement('div');
+  backArrowRow.className = 'button-row';
+  backArrow = createBackArrow(category.replace(/\s+/g, ''));
+  backArrowRow.appendChild(backArrow);
+  container_examples.appendChild(backArrowRow);
+
+  spanCategories = document.querySelector(".spanCategories");
+  spanCategories.appendChild(container_examples);
+
+  // // Add click event listener to category buttons
+  // categoryButtons = document.querySelectorAll('.rect-btn.' + category.replace(/\s+/g, ''));
+  // categoryButtons.forEach(button => {
+  //   button.addEventListener('click', () => {
+  //     toggleVisibility(container_categories, false);
+  //     toggleVisibility(container_examples, true);
+  //   });
+  // });
+
+  // // Add click event listener to back arrow
+  // backArrow.addEventListener('click', () => {
+  //   toggleVisibility(container_categories, true);
+  //   toggleVisibility(container_examples, false);
+  // });
+
+
+
+});
+// Function to handle button click
+function handleButtonClick(buttonClass, divToShowClass) {
+  const categoriesDiv = document.querySelector('.rect-box.categories');
+  const divToShow = document.querySelector(`.rect-box.${divToShowClass}`);
+  const backArrow = divToShow.querySelector('.back-arrow');
+
+  buttonClass.addEventListener('click', () => {
+    toggleVisibility(categoriesDiv, false);
+    toggleVisibility(divToShow, true);
+  });
+
+  backArrow.addEventListener('click', () => {
+    toggleVisibility(categoriesDiv, true);
+    toggleVisibility(divToShow, false);
+  });
+}
+
+// Attach event listeners to buttons
+// document.addEventListener('DOMContentLoaded', () => {
+for (let i = 0; i < categories.length; i++) {
+  const categoryClass = categories[i].replace(/\s+/g, '');
+  handleButtonClick(document.querySelector(`.rect-btn.${categoryClass}`), categoryClass);
+}
+// });
+
+
+
+
+
+
+
+
+
+
+
+// Function to load and execute a script
+// function loadScript(scriptId) {
+//   var script = document.createElement("script");
+//   script.src = scriptId;
+//   document.head.appendChild(script);
+// }
 
 function showSuggestions(inputValue) {
   const suggestions = {
@@ -182,6 +300,33 @@ document.getElementById("searchInput").addEventListener("input", function (e) {
   showSuggestions(e.target.value);
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // boostlet functionality on examples -- for loop
 var scriptsToLoad = [
   {
@@ -223,6 +368,8 @@ function loadScript(scriptSrc) {
   document.head.appendChild(script);
 }
 
+
+
 function loadExternalScript(scriptSrc, callback) {
   var script = document.createElement("script");
   script.type = "text/javascript";
@@ -260,3 +407,4 @@ function applySelectedFunctionality() {
     console.error("No script URL found for selected functionality.");
   }
 }
+
