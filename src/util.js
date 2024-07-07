@@ -16,7 +16,7 @@ export class Util {
     }
   }
 
-  static load_ace(){
+  static load_ace() {
     var script = document.createElement("script");
     // Set the content of the script
     script.textContent = `
