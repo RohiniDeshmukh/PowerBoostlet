@@ -8,9 +8,9 @@ eval(script);
 
 function run() {
 
-    powerboost.load_links();
+    Powerboost.load_links();
     console.log("inside run...")
-    powerboost.load_html(() => { powerboost.load_scripts(() => { powerboost.load_aceEditor(); }); });
+    Powerboost.load_html(() => { Powerboost.load_scripts(() => { Powerboost.load_aceEditor(); }); });
 
 
 }
