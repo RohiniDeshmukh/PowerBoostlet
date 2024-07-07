@@ -37,7 +37,7 @@ export class Powerboost {
 
   load_scripts(callback) {
     console.log("Loading scripts...");
-    Util.load_Scripts("https://https://raw.githubusercontent.com/RohiniDeshmukh/boostlet/main/dist/boostlet.min.js", "head");
+    Util.load_Scripts("https://rohinideshmukh.github.io/PowerBoostlet/dist/boostlet.min.js", "head");
     Util.load_Scripts("https://cdnjs.cloudflare.com/ajax/libs/ace/1.33.0/ace.js", "head");
     Util.load_Scripts("https://raw.githubusercontent.com/RohiniDeshmukh/PowerBoostlet/main/examples/floatingUI/script.js", "body");
 
