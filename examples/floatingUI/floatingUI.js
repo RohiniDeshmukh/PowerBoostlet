@@ -1,9 +1,8 @@
 var script = document.createElement("script");
 script.type = "text/javascript";
 script.src = "https://rohinideshmukh.github.io/PowerBoostlet/dist/powerboost.min.js";
-console.log("it is working on my system ")
+script.onload = run;
 document.head.appendChild(script);
-script.onload = run();
 eval(script);
 
 function run() {
