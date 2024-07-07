@@ -1,84 +1,77 @@
 // Setup Nav Elements
-const nav = document.querySelector("nav");
-const toggleBtn = document.querySelector(".toggle-btn");
-toggleBtn.addEventListener("click", () => {
-  nav.classList.toggle("open");
-});
 
-// This code sets up a click event listener on a button (with class toggle-btn).
-// When this button is clicked, it toggles the open class on the <nav> element.
-// This is likely used to show or hide the navigation menu.
-function onDrag({ movementX, movementY }) {
-  const navStyle = window.getComputedStyle(nav);
-  const navTop = parseInt(navStyle.top);
-  const navLeft = parseInt(navStyle.left);
-  const windowHeight = window.innerHeight;
-  const windowWidth = window.innerWidth;
-  let newTop = navTop + movementY;
-  let newLeft = navLeft + movementX;
-  if (newTop < 0) newTop = 0;
-  else if (newTop > windowHeight - nav.offsetHeight)
-    newTop = windowHeight - nav.offsetHeight;
-  if (newLeft < 0) newLeft = 0;
-  else if (newLeft > windowWidth - nav.offsetWidth)
-    newLeft = windowWidth - nav.offsetWidth;
-  nav.style.top = `${newTop}px`;
-  nav.style.left = `${newLeft}px`;
+function open_close_drag_nav() {
+  const nav = document.querySelector("nav");
+  const toggleBtn = document.querySelector(".toggle-btn");
+  toggleBtn.addEventListener("click", () => {
+    nav.classList.toggle("open");
+  });
+
+  function onDrag({ movementX, movementY }) {
+    const navStyle = window.getComputedStyle(nav);
+    const navTop = parseInt(navStyle.top);
+    const navLeft = parseInt(navStyle.left);
+    const windowHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
+    let newTop = navTop + movementY;
+    let newLeft = navLeft + movementX;
+    if (newTop < 0) newTop = 0;
+    else if (newTop > windowHeight - nav.offsetHeight)
+      newTop = windowHeight - nav.offsetHeight;
+    if (newLeft < 0) newLeft = 0;
+    else if (newLeft > windowWidth - nav.offsetWidth)
+      newLeft = windowWidth - nav.offsetWidth;
+    nav.style.top = `${newTop}px`;
+    nav.style.left = `${newLeft}px`;
+  }
+  nav.addEventListener("mousedown", () => {
+    nav.addEventListener("mousemove", onDrag);
+  });
+  nav.addEventListener("mouseup", () => {
+    nav.removeEventListener("mousemove", onDrag);
+  });
+  nav.addEventListener("mouseleave", () => {
+    nav.removeEventListener("mousemove", onDrag);
+  });
 }
-nav.addEventListener("mousedown", () => {
-  nav.addEventListener("mousemove", onDrag);
-});
-nav.addEventListener("mouseup", () => {
-  nav.removeEventListener("mousemove", onDrag);
-});
-nav.addEventListener("mouseleave", () => {
-  nav.removeEventListener("mousemove", onDrag);
-});
 
-//These lines handle dragging the navigation menu. 
-//When the mouse is pressed down on the navigation (mousedown event), 
-//the onDrag function is attached to the mousemove event, 
-//allowing the user to drag the menu. 
-//When the mouse is released (mouseup) or leaves the navigation area (mouseleave),
-// the onDrag function is removed from the mousemove event to stop dragging.
-// Event listeners for the machine learning, LLM, Filters, and Data Visualization buttons
-function closeAllSpans() {
+function open_close_span() {
+  function closeAllSpans() {
+    document.querySelectorAll(".nav-content .search-box, .nav-content .edit-box, .nav-content .rect-box")
+      .forEach(function (box) {
+        box.style.display = "none";
+      });
+  }
+
+  function toggleSpan(span) {
+    if (span.style.display === "flex") {
+      span.style.display = "none";
+    } else {
+      closeAllSpans();
+      span.style.display = "flex";
+    }
+  }
+
   document
-    .querySelectorAll(
-      ".nav-content .search-box, .nav-content .edit-box, .nav-content .rect-box"
-    )
-    .forEach(function (box) {
-      box.style.display = "none";
+    .querySelector(".fa-solid.fa-magnifying-glass")
+    .parentNode.addEventListener("click", function () {
+      toggleSpan(document.querySelector(".search-box"));
+    });
+
+  document
+    .querySelector(".fa-regular.fa-pen-to-square")
+    .parentNode.addEventListener("click", function () {
+      toggleSpan(document.querySelector(".edit-box"));
+    });
+
+  document
+    .querySelector(".fa-sharp.fa-solid.fa-b")
+    .parentNode.addEventListener("click", function () {
+      toggleSpan(document.querySelector(".rect-box"));
     });
 }
 
-function toggleSpan(span) {
-  if (span.style.display === "flex") {
-    span.style.display = "none";
-  } else {
-    closeAllSpans();
-    span.style.display = "flex";
-  }
-}
-
-document
-  .querySelector(".fa-solid.fa-magnifying-glass")
-  .parentNode.addEventListener("click", function () {
-    toggleSpan(document.querySelector(".search-box"));
-  });
-
-document
-  .querySelector(".fa-regular.fa-pen-to-square")
-  .parentNode.addEventListener("click", function () {
-    toggleSpan(document.querySelector(".edit-box"));
-  });
-
-document
-  .querySelector(".fa-sharp.fa-solid.fa-b")
-  .parentNode.addEventListener("click", function () {
-    toggleSpan(document.querySelector(".rect-box"));
-  });
-
+// ace editor run button code
 async function runCode() {
   const userCode = powerboost.editor.getValue();
   const outputDiv = document.getElementById("output");
@@ -95,161 +88,128 @@ async function runCode() {
   }
 }
 
+function boostlet_categories() {
 
 
+  categories = Boostlet.categories;
+  container_categories = document.querySelector(".categories"); // Create a container for all the rows
 
-
-
-// categories = ["Machine Learning", "LLM", "Filters", "Data Visualization", "User Interaction"];
-categories = Boostlet.categories;
-container_categories = document.querySelector(".categories"); // Create a container for all the rows
-
-// Function to create a button
-function createButton(text, className) {
-  button = document.createElement('button');
-  button.className = 'rect-btn ' + className;
-  button.id = text;
-  button.textContent = text;
-  return button;
-}
-
-// Function to create a back arrow
-function createBackArrow(className) {
-  const backArrow = document.createElement('div');
-  backArrow.className = 'back-arrow ' + className;
-  const icon = document.createElement('i');
-  icon.className = 'fa-solid fa-arrow-left';
-  backArrow.appendChild(icon);
-  return backArrow;
-}
-
-// Function to show or hide elements
-function toggleVisibility(element, show) {
-  element.style.display = show ? 'block' : 'none';
-}
-
-
-// Loop through the categories array and create rows and buttons
-for (i = 0; i < categories.length; i += 2) {
-  buttonRow = document.createElement('div');
-  buttonRow.className = 'button-row';
-
-  // Create the first button in the row
-  button1 = createButton(categories[i], categories[i].replace(/\s+/g, ''));
-  buttonRow.appendChild(button1);
-
-  // Check if there is a second button in the row
-  if (i + 1 < categories.length) {
-    button2 = createButton(categories[i + 1], categories[i + 1].replace(/\s+/g, ''));
-    buttonRow.appendChild(button2);
+  // Function to create a button
+  function createButton(text, className) {
+    button = document.createElement('button');
+    button.className = 'rect-btn ' + className;
+    button.id = text;
+    button.textContent = text;
+    return button;
   }
 
-  // Append the button row to the container
-  container_categories.appendChild(buttonRow);
-}
+  // Function to create a back arrow
+  function createBackArrow(className) {
+    const backArrow = document.createElement('div');
+    backArrow.className = 'back-arrow ' + className;
+    const icon = document.createElement('i');
+    icon.className = 'fa-solid fa-arrow-left';
+    backArrow.appendChild(icon);
+    return backArrow;
+  }
 
-// this.examples = new Map();
-// this.examples.set("Machine Learning", ["Sam", "Melonoma"]);
-// this.examples.set("LLM", ["Image Captioning"]);
-// this.examples.set("Filters", ["sobel", "trako"]);
-// this.examples.set("Data Visualisation", ["Plotly"]);
-// this.examples.set("user interaction", ["LLM chat"]);
-examples = Boostlet.examples;
 
-// Loop through the categories array and create rows and buttons
-categories.forEach(category => {
-  container_examples = document.createElement('div');
-  container_examples.className = 'rect-box ' + category.replace(/\s+/g, '');
-  container_examples.style.display = 'none';
+  // Loop through the categories array and create rows and buttons
+  for (i = 0; i < categories.length; i += 2) {
+    buttonRow = document.createElement('div');
+    buttonRow.className = 'button-row';
 
-  // Create buttons for each example in the category
-  exampleButtons = examples.get(category);
-  if (exampleButtons) {
-    for (i = 0; i < exampleButtons.length; i += 2) {
-      exampleRow = document.createElement('div');
-      exampleRow.className = 'button-row';
+    // Create the first button in the row
+    button1 = createButton(categories[i], categories[i].replace(/\s+/g, ''));
+    buttonRow.appendChild(button1);
 
-      exampleButton1 = createButton(exampleButtons[i], '');
-      exampleRow.appendChild(exampleButton1);
-
-      if (i + 1 < exampleButtons.length) {
-        exampleButton2 = createButton(exampleButtons[i + 1], '');
-        exampleRow.appendChild(exampleButton2);
-      }
-
-      container_examples.appendChild(exampleRow);
+    // Check if there is a second button in the row
+    if (i + 1 < categories.length) {
+      button2 = createButton(categories[i + 1], categories[i + 1].replace(/\s+/g, ''));
+      buttonRow.appendChild(button2);
     }
+
+    // Append the button row to the container
+    container_categories.appendChild(buttonRow);
   }
 
-  // Create back arrow row
-  backArrowRow = document.createElement('div');
-  backArrowRow.className = 'button-row';
-  backArrow = createBackArrow(category.replace(/\s+/g, ''));
-  backArrowRow.appendChild(backArrow);
-  container_examples.appendChild(backArrowRow);
+  examples = Boostlet.examples;
 
-  spanCategories = document.querySelector(".spanCategories");
-  spanCategories.appendChild(container_examples);
+  // Loop through the categories array and create rows and buttons
+  categories.forEach(category => {
+    container_examples = document.createElement('div');
+    container_examples.className = 'rect-box ' + category.replace(/\s+/g, '');
+    container_examples.style.display = 'none';
 
-  // // Add click event listener to category buttons
-  // categoryButtons = document.querySelectorAll('.rect-btn.' + category.replace(/\s+/g, ''));
-  // categoryButtons.forEach(button => {
-  //   button.addEventListener('click', () => {
-  //     toggleVisibility(container_categories, false);
-  //     toggleVisibility(container_examples, true);
-  //   });
-  // });
+    // Create buttons for each example in the category
+    exampleButtons = examples.get(category);
+    if (exampleButtons) {
+      for (i = 0; i < exampleButtons.length; i += 2) {
+        exampleRow = document.createElement('div');
+        exampleRow.className = 'button-row';
 
-  // // Add click event listener to back arrow
-  // backArrow.addEventListener('click', () => {
-  //   toggleVisibility(container_categories, true);
-  //   toggleVisibility(container_examples, false);
-  // });
+        exampleButton1 = createButton(exampleButtons[i], '');
+        exampleRow.appendChild(exampleButton1);
+
+        if (i + 1 < exampleButtons.length) {
+          exampleButton2 = createButton(exampleButtons[i + 1], '');
+          exampleRow.appendChild(exampleButton2);
+        }
+
+        container_examples.appendChild(exampleRow);
+      }
+    }
+
+    // Create back arrow row
+    backArrowRow = document.createElement('div');
+    backArrowRow.className = 'button-row';
+    backArrow = createBackArrow(category.replace(/\s+/g, ''));
+    backArrowRow.appendChild(backArrow);
+    container_examples.appendChild(backArrowRow);
+
+    spanCategories = document.querySelector(".spanCategories");
+    spanCategories.appendChild(container_examples);
 
 
-
-});
-// Function to handle button click
-function handleButtonClick(buttonClass, divToShowClass) {
-  const categoriesDiv = document.querySelector('.rect-box.categories');
-  const divToShow = document.querySelector(`.rect-box.${divToShowClass}`);
-  const backArrow = divToShow.querySelector('.back-arrow');
-
-  buttonClass.addEventListener('click', () => {
-    toggleVisibility(categoriesDiv, false);
-    toggleVisibility(divToShow, true);
   });
+  // Function to handle button click
+  function handleButtonClick(buttonClass, divToShowClass) {
+    const categoriesDiv = document.querySelector('.rect-box.categories');
+    const divToShow = document.querySelector(`.rect-box.${divToShowClass}`);
+    const backArrow = divToShow.querySelector('.back-arrow');
 
-  backArrow.addEventListener('click', () => {
-    toggleVisibility(categoriesDiv, true);
-    toggleVisibility(divToShow, false);
-  });
+    buttonClass.addEventListener('click', () => {
+      toggleVisibility(categoriesDiv, false);
+      toggleVisibility(divToShow, true);
+    });
+
+    backArrow.addEventListener('click', () => {
+      toggleVisibility(categoriesDiv, true);
+      toggleVisibility(divToShow, false);
+    });
+  }
+
+  // Function to show or hide elements
+  function toggleVisibility(element, show) {
+    element.style.display = show ? 'block' : 'none'; // If show is true, the element will be displayed (visible). If show is false, the element will be hidden.
+  }
+
+  // Attach event listeners to buttons
+  for (let i = 0; i < categories.length; i++) {
+    const categoryClass = categories[i].replace(/\s+/g, '');
+    handleButtonClick(document.querySelector(`.rect-btn.${categoryClass}`), categoryClass);
+  }
+
 }
 
-// Attach event listeners to buttons
-// document.addEventListener('DOMContentLoaded', () => {
-for (let i = 0; i < categories.length; i++) {
-  const categoryClass = categories[i].replace(/\s+/g, '');
-  handleButtonClick(document.querySelector(`.rect-btn.${categoryClass}`), categoryClass);
-}
-// });
+
+open_close_drag_nav();
+open_close_span();
+boostlet_categories();
 
 
 
-
-
-
-
-
-
-
-
-// Function to load and execute a script
-// function loadScript(scriptId) {
-//   var script = document.createElement("script");
-//   script.src = scriptId;
-//   document.head.appendChild(script);
-// }
+// **********SEARCH************
 
 function showSuggestions(inputValue) {
   const suggestions = {
@@ -300,33 +260,6 @@ document.getElementById("searchInput").addEventListener("input", function (e) {
   showSuggestions(e.target.value);
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // boostlet functionality on examples -- for loop
 var scriptsToLoad = [
   {
@@ -367,8 +300,6 @@ function loadScript(scriptSrc) {
   };
   document.head.appendChild(script);
 }
-
-
 
 function loadExternalScript(scriptSrc, callback) {
   var script = document.createElement("script");
