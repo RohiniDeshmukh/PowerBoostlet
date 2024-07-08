@@ -32,7 +32,7 @@ export class Powerboost {
 
       // Call the callback function after HTML is loaded
       callback();
-    }, 100);
+    }, 1000);
   }
 
   load_scripts(callback) {
@@ -46,7 +46,7 @@ export class Powerboost {
     setTimeout(function () {
       console.log("Scripts loaded.");
       callback();
-    }, 100);
+    }, 1000);
   }
 
   load_aceEditor() {
