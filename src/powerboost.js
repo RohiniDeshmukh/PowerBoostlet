@@ -32,7 +32,7 @@ export class Powerboost {
 
       // Call the callback function after HTML is loaded
       callback();
-    }, 10);
+    }, 100);
   }
 
   load_scripts(callback) {
