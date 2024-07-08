@@ -73,7 +73,7 @@ function open_close_span() {
 
 // ace editor run button code
 async function runCode() {
-  const userCode = powerboost.editor.getValue();
+  const userCode = Powerboost.editor.getValue();
   const outputDiv = document.getElementById("output");
   outputDiv.innerHTML = "";
 

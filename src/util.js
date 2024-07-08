@@ -20,7 +20,7 @@ export class Util {
     var script = document.createElement("script");
     // Set the content of the script
     script.textContent = `
-      window.powerboost.editor = ace.edit("editor", {
+      window.Powerboost.editor = ace.edit("editor", {
         theme: "ace/theme/monokai",
         mode: "ace/mode/javascript",
       });
