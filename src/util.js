@@ -1,5 +1,6 @@
 export class Util {
-  static load_Links(rel, href) {
+ 
+   static load_Links(rel, href) {
     var link = document.createElement("link");
     link.rel = rel;
     link.href = href;
